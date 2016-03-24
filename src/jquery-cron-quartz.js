@@ -10,36 +10,36 @@
         container: '<div class="cron-input"></div>',
         minutes: {
             tag: 'cron-minutes',
-            inputs: [ 'Every <select class="cron-minutes-select"></select> minutes(s)' ]
+            inputs: [ '<p>Every <select class="cron-minutes-select"></select> minutes(s)</p>' ]
         },
         hourly: {
             tag: 'cron-hourly',
-            inputs: [ '<input type="radio" name="hourlyType" value="every"> Every <select class="cron-hourly-select"></select> hour(s)<br>',
-                '<input type="radio" name="hourlyType" value="clock"> Every day at <select class="cron-hourly-hour"></select>:<select class="cron-hourly-minute"></select>']
+            inputs: [ '<p><input type="radio" name="hourlyType" value="every"> Every <select class="cron-hourly-select"></select> hour(s)</p>',
+                '<p><input type="radio" name="hourlyType" value="clock"> Every day at <select class="cron-hourly-hour"></select>:<select class="cron-hourly-minute"></select></p>']
         },
         daily: {
             tag: 'cron-daily',
-            inputs: [ '<input type="radio" name="dailyType" value="every"> Every <select class="cron-daily-select"></select> day(s)<br>',
-                '<input type="radio" name="dailyType" value="clock"> Every week day<br>']
+            inputs: [ '<p><input type="radio" name="dailyType" value="every"> Every <select class="cron-daily-select"></select> day(s)</p>',
+                '<p><input type="radio" name="dailyType" value="clock"> Every week day</p>']
         },
         weekly: {
             tag: 'cron-weekly',
-            inputs: [ '<input type="checkbox" name="dayOfWeekMon"> Monday ', '<input type="checkbox" name="dayOfWeekTue"> Tuesday ', 
-                '<input type="checkbox" name="dayOfWeekWed"> Wednesday', '<input type="checkbox" name="dayOfWeekThu"> Thursday<br>', 
-                '<input type="checkbox" name="dayOfWeekFri"> Friday ', '<input type="checkbox" name="dayOfWeekSat"> Saturday', 
-                '<input type="checkbox" name="dayOfWeekSun"> Sunday<br>' ]
+            inputs: [ '<p><input type="checkbox" name="dayOfWeekMon"> Monday  <input type="checkbox" name="dayOfWeekTue"> Tuesday  '+ 
+                '<input type="checkbox" name="dayOfWeekWed"> Wednesday  <input type="checkbox" name="dayOfWeekThu"> Thursday</p>', 
+                '<p><input type="checkbox" name="dayOfWeekFri"> Friday  <input type="checkbox" name="dayOfWeekSat"> Saturday  '+ 
+                '<input type="checkbox" name="dayOfWeekSun"> Sunday</p>' ]
         },
         monthly: {
             tag: 'cron-monthly',
-            inputs: [ '<input type="radio" name="monthlyType" value="byDay"> Day <select class="cron-monthly-day"></select> of every <select class="cron-monthly-month"></select> month(s)<br>',
-                '<input type="radio" name="monthlyType" value="byWeek"> The <select class="cron-monthly-nth-day"></select> ' + 
-                '<select class="cron-monthly-day-of-week"></select> of every <select class="cron-monthly-month-by-week"></select> month(s)<br>']
+            inputs: [ '<p><input type="radio" name="monthlyType" value="byDay"> Day <select class="cron-monthly-day"></select> of every <select class="cron-monthly-month"></select> month(s)</p>',
+                '<p><input type="radio" name="monthlyType" value="byWeek"> The <select class="cron-monthly-nth-day"></select> ' + 
+                '<select class="cron-monthly-day-of-week"></select> of every <select class="cron-monthly-month-by-week"></select> month(s)</p>']
         },
         yearly: {
             tag: 'cron-yearly',
-            inputs: [ '<input type="radio" name="yearlyType" value="byDay"> Every <select class="cron-yearly-month"></select> <select class="cron-yearly-day"></select><br>',
-                '<input type="radio" name="yearlyType" value="byWeek"> The <select class="cron-yearly-nth-day"></select> ' + 
-                '<select class="cron-yearly-day-of-week"></select> of <select class="cron-yearly-month-by-week"></select><br>']
+            inputs: [ '<p><input type="radio" name="yearlyType" value="byDay"> Every <select class="cron-yearly-month"></select> <select class="cron-yearly-day"></select></p>',
+                '<p><input type="radio" name="yearlyType" value="byWeek"> The <select class="cron-yearly-nth-day"></select> ' + 
+                '<select class="cron-yearly-day-of-week"></select> of <select class="cron-yearly-month-by-week"></select></p>']
         }
     };
 
@@ -192,13 +192,19 @@
             base.$el.append(cronInputs.startTime);
             base.$el.find("select.cron-clock-hour").append(hourClockOpts);
             base.$el.find("select.cron-clock-minute").append(minuteClockOpts);
+            
+            if(typeof base.options.onChange === "function") {
+                base.$el.find("select, input").change(function() {
+                    base.options.onChange(base.getExpression());
+                });
+            }
 
             base.$el.find("select.cron-period-select")
                 .triggerHandler("change");
             
         }
         
-        base.getExpression = function(parameters) {
+        base.getExpression = function() {
             //var b = c.data("block");
             var sec = 0; // ignoring seconds by default
             var year = "*"; // every year by default
@@ -304,10 +310,8 @@
     
     // Plugin default options
     $.cronBuilder.defaultOptions = {
-        selectorLabel: "Select period: ",
-        //color: "#fff",
-        //backgroundColor: "#000",
-        //toggleClass: "on"
+        selectorLabel: "Select period: "
+        
     };    
  
     // Plugin definition 

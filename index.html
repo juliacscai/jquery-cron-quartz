@@ -4,26 +4,139 @@
         <meta charset="UTF-8">
         <meta name="description" content="Demo page for jQuery cron builder plugin">
         <meta name="author" content="Julia Cai">
-        <title> jQuery CRON Builder Demo</title>
+        <title> jQuery Cron Builder</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+        <link rel="stylesheet" href="src/jquery-cron-quartz.css">
+        <style type="text/css">
+            h1 {
+                color: #1da9cc !important;
+                font-weight: 700;
+                line-height: 1.1;
+            }
+            .demo {
+                padding: 20px;
+                background-color: #DFEDF6;
+                margin: 15px 30px;
+            }
+            .demo .cron-builder {
+                min-height: 130px;
+            }
+            .demo span {
+                font-family: monospace;
+            }
+            #example2-btn {
+                margin-top: 15px;
+            }
+            pre {
+                margin: 0px 30px;
+            }
+            .alert {
+                margin-top: 20px;
+                margin-bottom: 0px;
+            }
+            footer {
+                margin-top:60px;
+            }
+            
+            footer p {
+                padding: 20px;
+                background-color: #eee;
+            }
+        </style>
+        <style type="text/css">
+
+        </style>
+        
         <script type="text/javascript" src="//code.jquery.com/jquery-2.2.0.min.js"></script>
-        <script type="text/javascript" src="src/jquery-cron-quartz.js"></script>
+        <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script> -->
+        <script type="text/javascript" src="src/jquery-cron-quartz.min.js"></script>
         <script type="text/javascript">
             $(function() {
-               $('#cron').cronBuilder();
+               $('#example1-cron').cronBuilder({
+                   selectorLabel: "Select time period:  ",
+                   onChange: function(expression) {
+                       $('#example1-result').text(expression);
+                   }
+               });
                
-               $('#generate').click(function(){
-                   var current=$('#cron').data('cronBuilder').getExpression();
-                   $('#result').text(current);
+                $('#example2-cron').cronBuilder();
+               
+               $('#example2-btn').click(function(){
+                   var current=$('#example2-cron').data('cronBuilder').getExpression();
+                   $('#example2-result').text(current);
                })
                
             });
         </script>
     </head>
     <body>
-        <h1>jQuery Cron Builder Demo</h1>
-        <p>From Cloud9 IDE!</p>
-        <div id="cron"></div>
-        <button id="generate">Generate Cron Expression</button>
-        <span id="result"></span>
+        <div class="jumbotron">
+            <div class="container">
+                <h1>jQuery Cron Builder</h1>
+                <p class="lead">Simple UI to create cron expressions for Quartz Schedular</p>
+            </div>
+        </div>
+        <div class="container">
+            
+            <h2>Introduction</h2>
+            
+            <p>...</p>
+            
+            <h2>Demo</h2>
+
+            <div class="demo">
+                <div id="example1-cron" class="cron-builder"></div>
+                <div class="alert alert-warning">
+                    <p><strong>Cron Expression:</strong> <span id="example1-result"></span></p>
+                </div>
+            </div>
+            
+            <pre>
+$(function() {
+
+    // Initialize DOM with cron builder with options
+    $('#cron').cronBuilder({
+       selectorLabel: "Select time period: ",
+       onChange: function(expression) {
+           $('#result').text(expression);
+       }
+    });
+});</pre>
+
+        <div class="demo">
+            <div id="example2-cron" class="cron-builder"></div>
+            <button id="example2-btn" type="button" class="btn btn-success">Generate Cron Expression</button>
+            <div class="alert alert-warning">
+                <p><strong>Cron Expression:</strong> <span id="example2-result"></span></p>
+            </div>
+        </div>
+            
+            <pre>
+$(function() {
+    
+    // Initialize DOM with cron builder 
+    $('#cron').cronBuilder();
+    
+    // Add event handler to button 
+    $('button#generate').click(function(){
+    
+        // Get current cron expression 
+        var expression=$('#cron').data('cronBuilder').getExpression();
+        
+        // Dispaly cron expression
+        $('#result').text(expression);
+    })    
+});</pre>
+            
+            
+            <h2>Download</h2>
+            
+            <pre>&lt;script type="text/javascript" src="src/jquery-cron-quartz.js" &gt;&lt;/script&gt;</pre>
+
+        </div>
+        
+        <footer>
+            <p class="text-center">Copyright © 2016 <a href="https://github.com/juliacscai" target="_blank">Julia Cai</a>. Under <a href="https://opensource.org/licenses/MIT" target="_blank">MIT</a> license.</p>
+    	</footer>    
     </body>
 </html>
