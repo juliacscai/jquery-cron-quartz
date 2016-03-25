@@ -100,35 +100,35 @@
                 case 'Minutes':
                     $selector.siblings('div.cron-minutes')
                         .show()
-                        .children("select.cron-minutes-select").val('1');
+                        .find("select.cron-minutes-select").val('1');
                     $selector.siblings('div.cron-start-time').hide();
                     break;
                 case 'Hourly':
                     var $hourlyEl=$selector.siblings('div.cron-hourly');
                     $hourlyEl.show()
-                        .children("input[name=hourlyType][value=every]").prop('checked', true);
-                    $hourlyEl.children("select.cron-hourly-hour").val('12');
+                        .find("input[name=hourlyType][value=every]").prop('checked', true);
+                    $hourlyEl.find("select.cron-hourly-hour").val('12');
                     $selector.siblings('div.cron-start-time').hide();
                     break;
                 case 'Daily':
                     var $dailyEl=$selector.siblings('div.cron-daily');
                     $dailyEl.show()
-                        .children("input[name=dailyType][value=every]").prop('checked', true);
+                        .find("input[name=dailyType][value=every]").prop('checked', true);
                     break;
                 case 'Weekly':
                     $selector.siblings('div.cron-weekly')
                         .show()
-                        .children("input[type=checkbox]").prop('checked', false);
+                        .find("input[type=checkbox]").prop('checked', false);
                     break;
                 case 'Monthly':
                     var $monthlyEl=$selector.siblings('div.cron-monthly');
                     $monthlyEl.show()
-                        .children("input[name=monthlyType][value=byDay]").prop('checked', true);
+                        .find("input[name=monthlyType][value=byDay]").prop('checked', true);
                     break;
                 case 'Yearly':
                     var $yearlyEl=$selector.siblings('div.cron-yearly');
                     $yearlyEl.show()
-                        .children("input[name=yearlyType][value=byDay]").prop('checked', true);
+                        .find("input[name=yearlyType][value=byDay]").prop('checked', true);
                     break;                    
             } 
         }
@@ -216,7 +216,7 @@
             switch (period) {
                 case 'Minutes':
                     var $selector=base.$el.find("div.cron-minutes");
-                    var nmin=$selector.children("select.cron-minutes-select").val();
+                    var nmin=$selector.find("select.cron-minutes-select").val();
                 	if(nmin > 1) min ="0/"+nmin;
                 	else min="*";
                 	hour="*";
@@ -224,21 +224,21 @@
                     
                 case 'Hourly':
                     var $selector=base.$el.find("div.cron-hourly");
-                    if($selector.children("input[name=hourlyType][value=every]").is(":checked")){
+                    if($selector.find("input[name=hourlyType][value=every]").is(":checked")){
                         min=0;
                         hour="*";
-                        var nhour=$selector.children("select.cron-hourly-select").val();
+                        var nhour=$selector.find("select.cron-hourly-select").val();
                     	if(nhour > 1) hour ="0/"+nhour;
                     } else {
-                        min=$selector.children("select.cron-hourly-minute").val();
-                        hour=$selector.children("select.cron-hourly-hour").val();
+                        min=$selector.find("select.cron-hourly-minute").val();
+                        hour=$selector.find("select.cron-hourly-hour").val();
                     }
                     break;
     
                 case 'Daily':
                     var $selector=base.$el.find("div.cron-daily");
-                    if($selector.children("input[name=dailyType][value=every]").is(":checked")){
-                        var ndom=$selector.children("select.cron-daily-select").val();
+                    if($selector.find("input[name=dailyType][value=every]").is(":checked")){
+                        var ndom=$selector.find("select.cron-daily-select").val();
                         if(ndom > 1) dom ="1/"+ndom;
                     } else {
                         dom="?";
@@ -249,19 +249,19 @@
                 case 'Weekly':
                     var $selector=base.$el.find("div.cron-weekly");
                     var ndow=[];
-                    if($selector.children("input[name=dayOfWeekMon]").is(":checked"))
+                    if($selector.find("input[name=dayOfWeekMon]").is(":checked"))
                         ndow.push("MON");
-                    if($selector.children("input[name=dayOfWeekTue]").is(":checked"))
+                    if($selector.find("input[name=dayOfWeekTue]").is(":checked"))
                         ndow.push("TUE");
-                    if($selector.children("input[name=dayOfWeekWed]").is(":checked"))
+                    if($selector.find("input[name=dayOfWeekWed]").is(":checked"))
                         ndow.push("WED");
-                    if($selector.children("input[name=dayOfWeekThu]").is(":checked"))
+                    if($selector.find("input[name=dayOfWeekThu]").is(":checked"))
                         ndow.push("THU");
-                    if($selector.children("input[name=dayOfWeekFri]").is(":checked"))
+                    if($selector.find("input[name=dayOfWeekFri]").is(":checked"))
                         ndow.push("FRI");
-                    if($selector.children("input[name=dayOfWeekSat]").is(":checked"))
+                    if($selector.find("input[name=dayOfWeekSat]").is(":checked"))
                         ndow.push("SAT");
-                    if($selector.children("input[name=dayOfWeekSun]").is(":checked"))
+                    if($selector.find("input[name=dayOfWeekSun]").is(":checked"))
                         ndow.push("SUN");
                     dow="*";
                     dom="?";
@@ -271,15 +271,15 @@
                 case 'Monthly':
                     var $selector=base.$el.find("div.cron-monthly");
                     var nmonth;
-                    if($selector.children("input[name=monthlyType][value=byDay]").is(":checked")){
+                    if($selector.find("input[name=monthlyType][value=byDay]").is(":checked")){
                         month="*";
-                        nmonth=$selector.children("select.cron-monthly-month").val();
-                        dom=$selector.children("select.cron-monthly-day").val();
+                        nmonth=$selector.find("select.cron-monthly-month").val();
+                        dom=$selector.find("select.cron-monthly-day").val();
                         dow="?";
                     } else {
-                        dow=$selector.children("select.cron-monthly-day-of-week").val()
-                            +"#"+$selector.children("select.cron-monthly-nth-day").val();
-                        nmonth=$selector.children("select.cron-monthly-month-by-week").val();
+                        dow=$selector.find("select.cron-monthly-day-of-week").val()
+                            +"#"+$selector.find("select.cron-monthly-nth-day").val();
+                        nmonth=$selector.find("select.cron-monthly-month-by-week").val();
                         dom="?";
                     }
                     if(nmonth > 1) month ="1/"+nmonth;
@@ -287,14 +287,14 @@
     
                 case 'Yearly':
                     var $selector=base.$el.find("div.cron-yearly");
-                    if($selector.children("input[name=yearlyType][value=byDay]").is(":checked")){
-                        dom=$selector.children("select.cron-yearly-day").val();
-                        month=$selector.children("select.cron-yearly-month").val();
+                    if($selector.find("input[name=yearlyType][value=byDay]").is(":checked")){
+                        dom=$selector.find("select.cron-yearly-day").val();
+                        month=$selector.find("select.cron-yearly-month").val();
                         dow="?";
                     } else {
-                        dow=$selector.children("select.cron-yearly-day-of-week").val()
-                            +"#"+$selector.children("select.cron-yearly-nth-day").val();
-                        month=$selector.children("select.cron-yearly-month-by-week").val();
+                        dow=$selector.find("select.cron-yearly-day-of-week").val()
+                            +"#"+$selector.find("select.cron-yearly-nth-day").val();
+                        month=$selector.find("select.cron-yearly-month-by-week").val();
                         dom="?";
                     }
                     break;
