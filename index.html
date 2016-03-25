@@ -6,7 +6,7 @@
         <meta name="author" content="Julia Cai">
         <title> jQuery Cron Builder</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-        <link rel="stylesheet" href="src/jquery-cron-quartz.css">
+        <link rel="stylesheet" type="text/css" href="src/jquery-cron-quartz.css">
         <style type="text/css">
             h1 {
                 color: #1da9cc !important;
@@ -16,7 +16,7 @@
             .demo {
                 padding: 20px;
                 background-color: #DFEDF6;
-                margin: 15px 30px;
+                margin: 15px 0px;
             }
             .demo .cron-builder {
                 min-height: 130px;
@@ -26,9 +26,6 @@
             }
             #example2-btn {
                 margin-top: 15px;
-            }
-            pre {
-                margin: 0px 30px;
             }
             .alert {
                 margin-top: 20px;
@@ -43,12 +40,8 @@
                 background-color: #eee;
             }
         </style>
-        <style type="text/css">
 
-        </style>
-        
-        <script type="text/javascript" src="//code.jquery.com/jquery-2.2.0.min.js"></script>
-        <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script> -->
+        <script type="text/javascript" src="//code.jquery.com/jquery-1.12.0.min.js"></script>
         <script type="text/javascript" src="src/jquery-cron-quartz.js"></script>
         <script type="text/javascript">
             $(function() {
@@ -80,9 +73,23 @@
             
             <h2>Introduction</h2>
             
-            <p>...</p>
+            <p>Cron is a UNIX utility used to schedule a command or script on your server to run automatically. 
+            Cron expressions represent a specific time and date. Scheduling automatic tasks can be very useful 
+            to automate repetitive tasks. Cron expressions are strings comprised of 6 or 7 characters separated 
+            by white spaces, and they can be pretty confusing.</p>
+            
+            <p>The jQuery Cron Builder is a jQuery plugin that provides a clean user interface to create 
+            complex cron expressions. The cron expressions created by this tool is used for 
+            <a href="http://www.quartz-scheduler.org/documentation/quartz-1.x/tutorials/crontrigger" 
+            target="_blank">Quartz Job Schedular</a>.
+            </p>
             
             <h2>Demo</h2>
+            
+            <p>To use the plugin, simply initialize the DOM element using the cronBuilder method. In the first 
+            example, a function is automatically called when user does a change in the inputs. The function is 
+            passed to the cronBuilder at initialization.
+            </p>
 
             <div class="demo">
                 <div id="example1-cron" class="cron-builder"></div>
@@ -90,7 +97,6 @@
                     <p><strong>Cron Expression:</strong> <span id="example1-result"></span></p>
                 </div>
             </div>
-            
             <pre>
 $(function() {
 
@@ -103,14 +109,17 @@ $(function() {
     });
 });</pre>
 
-        <div class="demo">
-            <div id="example2-cron" class="cron-builder"></div>
-            <button id="example2-btn" type="button" class="btn btn-success">Generate Cron Expression</button>
-            <div class="alert alert-warning">
-                <p><strong>Cron Expression:</strong> <span id="example2-result"></span></p>
+            <br>
+            <p>In the second example, the cron expression is only generated when the button is pressed. To get 
+            the current cron expression, simply call the method <code>getExpression()</code>.
+            </p>
+            <div class="demo">
+                <div id="example2-cron" class="cron-builder"></div>
+                <button id="example2-btn" type="button" class="btn btn-success">Generate Cron Expression</button>
+                <div class="alert alert-warning">
+                    <p><strong>Cron Expression:</strong> <span id="example2-result"></span></p>
+                </div>
             </div>
-        </div>
-            
             <pre>
 $(function() {
     
@@ -127,11 +136,17 @@ $(function() {
         $('#result').text(expression);
     })    
 });</pre>
-            
-            
+
             <h2>Download</h2>
             
-            <pre>&lt;script type="text/javascript" src="src/jquery-cron-quartz.js" &gt;&lt;/script&gt;</pre>
+            <p>The dev version can be downloaded <a href="https://github.com/juliacscai/jquery-cron-quartz/archive/master.zip">here</a>.</p>
+            
+            <h2>Usage</h2>
+            
+            <p>jQuery Cron Expression requires <a href="http://jquery.com/download/" target="_blank">jQuery 1.12.0</a> or above.</p>
+            
+            <pre>&lt;script type="text/javascript" src="src/jquery-cron-quartz.js" &gt;&lt;/script&gt;
+&lt;link rel="stylesheet" type="text/css" href="src/jquery-cron-quartz.css"&gt;</pre>
 
         </div>
         
